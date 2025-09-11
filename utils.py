@@ -1,11 +1,18 @@
 import torch
+import numpy as np
+
+import os
+dirname = os.path.dirname(__file__)
+import json
+with open(os.path.join(dirname, 'token2phoneme.json'), 'r') as f:
+    token2phoneme = json.load(f)
 
 from tokenizers import Tokenizer, models
 sup_phoneme_tokenizer = Tokenizer(models.BPE())
-sup_phoneme_tokenizer = sup_phoneme_tokenizer.from_file('SupPhonemeTokenizer')
+sup_phoneme_tokenizer = sup_phoneme_tokenizer.from_file(os.path.join(dirname, 'SupPhonemeTokenizer'))
 
 import json
-with open('token2phoneme.json', 'r') as f:
+with open(os.path.join(dirname, 'token2phoneme.json'), 'r') as f:
     token2phoneme = json.load(f)
 
 def arpabet2ipa(ps):
